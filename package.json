@@ -6,7 +6,9 @@
   "main": "src/main.ts",
   "scripts": {
     "build": "ncc build ./src/main.ts",
-    "all": "prettier --write **/*.ts && eslint src/**/*.ts && npm run build"
+    "all": "prettier --write **/*.ts && eslint src/**/*.ts && npm run build",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,8 @@
     "@actions/exec": "^1.0.4",
     "@actions/glob": "^0.1.1",
     "@types/prettier": "^2.1.5",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "@types/node": "^12.19.4",
@@ -35,5 +38,6 @@
     "eslint-plugin-github": "^4.1.1",
     "js-yaml": "^3.14.0",
     "typescript": "^3.9.7"
-  }
+  },
+  "snyk": true
 }
