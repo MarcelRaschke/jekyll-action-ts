@@ -79,22 +79,24 @@ on:
       # It is highly recommended that you only run this action on push to a
       # specific branch, eg. master or source (if on *.github.io repo)
 
+  workflow_dispatch: # Allows a run of this workflow to be triggerred manually from the Actions tab
+
 jobs:
   jekyll:
-    runs-on: ubuntu-16.04 # can change this to ubuntu-latest if you prefer
+    runs-on: ubuntu-latest
     steps:
       - name: 📂 setup
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v3
         # include the lines below if you are using jekyll-last-modified-at
         # or if you would otherwise need to fetch the full commit history
         # however this may be very slow for large repositories!
         # with:
         # fetch-depth: '0'
+
       - name: 💎 setup ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6 # can change this to 2.7 or whatever version you prefer
+          ruby-version: 2.7 # can change this to whatever version you prefer
 
       - name: 🔨 install dependencies & build site
         uses: limjh16/jekyll-action-ts@v2
@@ -104,6 +106,7 @@ jobs:
           #
           # format_output: true
           ### Uses prettier https://prettier.io to format jekyll output HTML.
+          ### To disable, just leave this commented out, prettier is disabled by default. https://github.com/limjh16/jekyll-action-ts/issues/12
           #
           # prettier_opts: '{ "useTabs": true }'
           ### Sets prettier options (in JSON) to format output HTML. For example, output tabs over spaces.
@@ -117,6 +120,9 @@ jobs:
           # jekyll_src: sample_site
           ### If the jekyll website source is not in root, specify the directory. (in this case, sample_site)
           ### By default, this is not required as the action searches for a _config.yml automatically.
+          #
+          # jekyll_env: development
+          ### If you need to specify `JEKYLL_ENV` environment variable or `jekyll.environment` Liquid variable, specify it here.
           #
           # gem_src: sample_site
           ### By default, this is not required as the action searches for a _config.yml automatically.
